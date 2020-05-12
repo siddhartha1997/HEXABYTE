@@ -1,22 +1,25 @@
 <?php
 
     session_start();
-    require("passenger.php");
+    require("user.php");
 
+    $user = $_POST['user'];
     $fname = $_POST['fname'];
-    $phone = $_POST['phno'];
-    $mail = $_POST['emailid'];
-    $pass = $_POST['pwd'];
+    $mail = $_POST['mail'];
+    $pass = $_POST['pass'];
 
-    $p = new passenger();
-    $p->setdetails($fname,$phone,$mail,$pass);
-    $valid = $p->insert();
-    if($valid)
+
+    //$reg = new register($user,$fname,$mail,$pass);
+    $reg = new user();
+    $c = $reg->insert($user,$fname,$mail,$pass);
+
+    if ($c)
     {
-        echo "Registration done. Close this page and go back to login page and relogin";
+        header("location:login.html");
     }
     else
     {
-        echo "Registration Fail";
+        echo("Fail in updation");
     }
+
 ?>

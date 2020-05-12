@@ -1,22 +1,23 @@
 <?php
 
     session_start();
-    require("passenger.php");
 
-    $user = $_POST['uid'];
-    $pass = $_POST['pwd'];
+    $user = $_POST['user'];
+    $pass = $_POST['pass'];
 
-    $p = new passenger();
-    $num = $p->getdetails($user, $pass);
+    require("user.php");
+    $user1 = new user();
+    $num = $user1->check($user,$pass);
+    $valid=$user1->validuser($num);
 
-    if($num == 1)
+    if($num)
     {
-        //$_SESSION['userid'] = $user;
-        //echo $user;
-        header('location:Special_booking.html');
+        $_SESSION['userid'] = $user1->getusername($user);
+        header('location:home.php');
     }
     else
     {
         header('location:login.html');
     }
+
 ?>
